@@ -1,0 +1,18 @@
+h3 {
+  color: whitesmoke
+}
+
+p {
+  color: whitesmoke
+}
+
+.storeBlock {
+  background-color: #080808;
+  border: 1px solid #222;
+  width: 75%;
+  margin: auto;
+}
+
+.woodSelect {
+  margin:10px;
+}
