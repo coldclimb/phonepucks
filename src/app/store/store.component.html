@@ -1,24 +1,49 @@
 <p>This page is under construction. To purchase a phone puck please email me at: <a href="mailto:coldclimb@gmail.com">coldclimb@gmail.com</a></p>
 
-
 <div class="storeBlock">
-  <p>Put a shopping cart component here</p>
+  <h4>Your Shopping Cart:</h4>
+  <div class="fakehr"></div>
+  <p *ngIf="!cartFull">Your shopping cart contains no items. Add a puck below!</p>
 </div>
-
 
 <h3>Build yourself a puck</h3>
 
+
+
 <div class="storeBlock">
-  <p>Select a wood:</p>
 
+  <form [formGroup]="puckBuilder" onsubmit="addToCart()">
+    <p>Select a wood:</p>
+    <div style="text-align: center;">
+      <div *ngFor="let w of woods()" class="woodSelect" (click)="selectedWood = w.type">
+        <img src="{{w.img}}"><br>{{w.type}}
+      </div>
+    </div>
 
-  <div *ngFor="let w of woods()" class="woodSelect">
-      <a href="">{{w.type}}</a>
-  </div>
+    <p>Select a slot size:</p>
+    <select>
+      <option *ngFor="let s of slots()" formControlName="width">{{s}}</option>
+    </select>
+
+    <p></p>
+
+    <p>Add any notes for the maker:</p>
+    <input type="text" formControlName="notes">
+
+    <p></p>
+
+    <button style="margin-bottom: 20px;" (click)="addToCart()">Add to Cart</button>
+  </form>
 
 
 
 </div>
 
+<br clear="all"><br><br>
 
-<div></div>
+<p>Selected Wood: {{this.selectedWood}}</p>
+<p>Selected Width: {{this.puckBuilder.controls.width}}</p>
+<p>Notes: {{this.puckBuilder.controls.notes}}</p>
+
+<br clear="all">
+

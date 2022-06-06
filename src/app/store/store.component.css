@@ -1,9 +1,31 @@
-h3 {
-  color: whitesmoke
+div {
+  color:whitesmoke;
+}
+
+a {
+  color: whitesmoke;
 }
 
 p {
-  color: whitesmoke
+  color: whitesmoke;
+}
+
+h3 {
+  color: whitesmoke;
+  margin-top: 15px;
+}
+
+h4 {
+  color: whitesmoke;
+}
+
+.fakehr {
+  border: 0;
+  height: 1px;
+  width: 80%;
+  margin:auto;
+  margin-bottom: 10px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
 }
 
 .storeBlock {
@@ -14,5 +36,9 @@ p {
 }
 
 .woodSelect {
+  background-color: #111;
+  border: 1px solid #222;
+  display: inline-block;
   margin:10px;
+  padding: 5px;
 }

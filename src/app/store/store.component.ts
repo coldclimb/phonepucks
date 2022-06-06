@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
-import { woods } from './woods';
+import { woods, slots } from './options';
 
 @Component({
   selector: 'app-store',
@@ -11,15 +12,43 @@ import { woods } from './woods';
 
 export class StoreComponent implements OnInit {
 
-
   constructor() {
   }
 
+  cartFull:boolean=false;
+  selectedWood:string = ''
+
   ngOnInit() {
+
   }
 
   woods() {
-    return woods
+    return woods;
   }
+
+  slots() {
+    return slots;
+  }
+
+
+
+  puckBuilder = new FormGroup({
+
+    wood: new FormControl(''),
+    width: new FormControl(slots),
+    notes: new FormControl('')
+
+  })
+
+
+  addToCart() {
+    //Todo: Add the selected puck to cart
+
+    this.cartFull = true;
+  }
+
+
+
+
 
 }
