@@ -4,6 +4,22 @@
   <h4>Your Shopping Cart:</h4>
   <div class="fakehr"></div>
   <p *ngIf="!cartFull">Your shopping cart contains no items. Add a puck below!</p>
+
+  <div *ngIf="cartFull">
+    <div *ngFor="let item of cart" class="woodSelect">
+      
+      <img src="{{woodImage(item.wood)}}"><br>
+      {{item.wood}}<br>
+      {{item.width}}<br>
+      Notes: {{item.notes}}<br>
+
+      <div class="removeFromCart" (click)="removeFromCart(item)">
+        Remove from cart
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <h3>Build yourself a puck</h3>
@@ -15,24 +31,26 @@
   <form [formGroup]="puckBuilder" onsubmit="addToCart()">
     <p>Select a wood:</p>
     <div style="text-align: center;">
-      <div *ngFor="let w of woods()" class="woodSelect" (click)="selectedWood = w.type">
+      <div *ngFor="let w of woods()" [ngClass]="amISelectedWood(w.type)" (click)="selectedWood = w.type">
         <img src="{{w.img}}"><br>{{w.type}}
       </div>
     </div>
 
     <p>Select a slot size:</p>
-    <select>
-      <option *ngFor="let s of slots()" formControlName="width">{{s}}</option>
-    </select>
+    <div style="text-align: center;">
+      <div *ngFor="let s of slots()" [ngClass]="amISelectedWidth(s.width)" (click)="selectedSlot = s.width">
+        <img src="{{s.img}}"><br>{{s.width}}
+      </div>
+    </div>
 
     <p></p>
 
-    <p>Add any notes for the maker:</p>
+    <p>Optional - Add any notes for the maker:</p>
     <input type="text" formControlName="notes">
 
     <p></p>
 
-    <button style="margin-bottom: 20px;" (click)="addToCart()">Add to Cart</button>
+    <button style="margin-bottom: 20px;" (click)="addToCart(selectedWood, selectedSlot, this.puckBuilder.controls.notes.value)">Add to Cart</button>
   </form>
 
 
@@ -41,9 +59,4 @@
 
 <br clear="all"><br><br>
 
-<p>Selected Wood: {{this.selectedWood}}</p>
-<p>Selected Width: {{this.puckBuilder.controls.width}}</p>
-<p>Notes: {{this.puckBuilder.controls.notes}}</p>
-
-<br clear="all">
 

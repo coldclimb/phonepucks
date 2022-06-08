@@ -12,11 +12,17 @@ import { woods, slots } from './options';
 
 export class StoreComponent implements OnInit {
 
-  constructor() {
+  constructor(
+
+    ) {
   }
 
+  cart:Array<{wood:string,width:string,notes:string}> = []
+  cartCookie:string = ''
   cartFull:boolean=false;
   selectedWood:string = ''
+  selectedSlot:string = ''
+  cartImage:string = ''
 
   ngOnInit() {
 
@@ -35,16 +41,47 @@ export class StoreComponent implements OnInit {
   puckBuilder = new FormGroup({
 
     wood: new FormControl(''),
-    width: new FormControl(slots),
+    width: new FormControl(''),
     notes: new FormControl('')
 
   })
 
 
-  addToCart() {
+  amISelectedWood(woodType:string) {
+    if (this.selectedWood === woodType) {
+      return 'woodSelected'
+    } else {
+      return 'woodSelect'
+    }
+  }
+
+  amISelectedWidth(width:string) {
+    if (this.selectedSlot === width) {
+      return 'woodSelected'
+    } else {
+      return 'woodSelect'
+    }
+  }
+
+  addToCart(w:string, s:string, n:string) {
     //Todo: Add the selected puck to cart
+    this.cart.push({wood: w, width: s, notes: n})
 
     this.cartFull = true;
+  }
+
+  removeFromCart(item:any) {
+    let i = this.cart.indexOf(item)
+    this.cart.splice(i, 1)
+    if(this.cart.length === 0) {
+      this.cartFull = false
+    }
+  }
+
+  woodImage(wood:string) {
+    let v:any = woods.find(w => w.type === wood)
+    this.cartImage = v.img
+    return this.cartImage
   }
 
 

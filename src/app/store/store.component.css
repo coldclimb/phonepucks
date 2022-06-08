@@ -40,5 +40,26 @@ h4 {
   border: 1px solid #222;
   display: inline-block;
   margin:10px;
-  padding: 5px;
+  padding: 8px;
+  border-radius: 15px;
+}
+.woodSelected {
+  background-color: rgb(124, 158, 177);
+  border: 1px solid #222;
+  display: inline-block;
+  margin:10px;
+  padding: 8px;
+  border-radius: 15px;
+}
+
+.removeFromCart {
+  font-size: smaller;
+  background-color: #333;
+  border: 1px solid #222;
+  display: inline-block;
+  margin-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  cursor: pointer;
 }
