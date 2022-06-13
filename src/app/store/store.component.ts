@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { CartService } from './cart.service';
 import { woods, slots } from './options';
 
 @Component({
@@ -12,20 +13,16 @@ import { woods, slots } from './options';
 
 export class StoreComponent implements OnInit {
 
-  constructor(
 
+  constructor(
+    public cartService: CartService
     ) {
   }
 
-  cart:Array<{wood:string,width:string,notes:string}> = []
-  cartCookie:string = ''
-  cartFull:boolean=false;
-  selectedWood:string = ''
-  selectedSlot:string = ''
+
   cartImage:string = ''
 
   ngOnInit() {
-
   }
 
   woods() {
@@ -39,16 +36,14 @@ export class StoreComponent implements OnInit {
 
 
   puckBuilder = new FormGroup({
-
-    wood: new FormControl(''),
-    width: new FormControl(''),
+    wood: new FormControl('', Validators.required),
+    width: new FormControl('', Validators.required),
     notes: new FormControl('')
-
   })
 
 
   amISelectedWood(woodType:string) {
-    if (this.selectedWood === woodType) {
+    if (this.puckBuilder.controls.wood.value === woodType) {
       return 'woodSelected'
     } else {
       return 'woodSelect'
@@ -56,7 +51,7 @@ export class StoreComponent implements OnInit {
   }
 
   amISelectedWidth(width:string) {
-    if (this.selectedSlot === width) {
+    if (this.puckBuilder.controls.width.value === width) {
       return 'woodSelected'
     } else {
       return 'woodSelect'
@@ -64,17 +59,16 @@ export class StoreComponent implements OnInit {
   }
 
   addToCart(w:string, s:string, n:string) {
-    //Todo: Add the selected puck to cart
-    this.cart.push({wood: w, width: s, notes: n})
-
-    this.cartFull = true;
+    this.cartService.setCart({wood: w, width: s, notes: n})
+    this.cartService.getCart()
+    this.cartService.cartFull = true;
   }
 
   removeFromCart(item:any) {
-    let i = this.cart.indexOf(item)
-    this.cart.splice(i, 1)
-    if(this.cart.length === 0) {
-      this.cartFull = false
+    let i = this.cartService.$cart.indexOf(item)
+    this.cartService.$cart.splice(i, 1)
+    if(this.cartService.$cart.length === 0) {
+      this.cartService.cartFull = false
     }
   }
 
@@ -83,7 +77,6 @@ export class StoreComponent implements OnInit {
     this.cartImage = v.img
     return this.cartImage
   }
-
 
 
 

@@ -3,11 +3,11 @@
 <div class="storeBlock">
   <h4>Your Shopping Cart:</h4>
   <div class="fakehr"></div>
-  <p *ngIf="!cartFull">Your shopping cart contains no items. Add a puck below!</p>
+  <p *ngIf="!cartService.cartFull">Your shopping cart contains no items. Add a puck below!</p>
 
-  <div *ngIf="cartFull">
-    <div *ngFor="let item of cart" class="woodSelect">
-      
+  <div *ngIf="cartService.cartFull">
+    <div *ngFor="let item of cartService.$cart" class="woodSelect">
+
       <img src="{{woodImage(item.wood)}}"><br>
       {{item.wood}}<br>
       {{item.width}}<br>
@@ -20,6 +20,8 @@
     </div>
   </div>
 
+  <div><app-checkout></app-checkout></div>
+
 </div>
 
 <h3>Build yourself a puck</h3>
@@ -29,16 +31,21 @@
 <div class="storeBlock">
 
   <form [formGroup]="puckBuilder" onsubmit="addToCart()">
+
+
+
     <p>Select a wood:</p>
     <div style="text-align: center;">
-      <div *ngFor="let w of woods()" [ngClass]="amISelectedWood(w.type)" (click)="selectedWood = w.type">
+      <div *ngFor="let w of woods()" [ngClass]="amISelectedWood(w.type)" (click)="this.puckBuilder.controls.wood.setValue(w.type)">
+        <input formControlName="wood" value="{{w.type}}" hidden required>
         <img src="{{w.img}}"><br>{{w.type}}
       </div>
     </div>
 
     <p>Select a slot size:</p>
     <div style="text-align: center;">
-      <div *ngFor="let s of slots()" [ngClass]="amISelectedWidth(s.width)" (click)="selectedSlot = s.width">
+      <div *ngFor="let s of slots()" [ngClass]="amISelectedWidth(s.width)" (click)="this.puckBuilder.controls.width.setValue(s.width)">
+        <input formControlName="width" value="{{s.width}}" hidden required>
         <img src="{{s.img}}"><br>{{s.width}}
       </div>
     </div>
@@ -50,7 +57,7 @@
 
     <p></p>
 
-    <button style="margin-bottom: 20px;" (click)="addToCart(selectedWood, selectedSlot, this.puckBuilder.controls.notes.value)">Add to Cart</button>
+    <button type="button" [disabled]="!puckBuilder.valid" class="btn btn-secondary" style="margin-bottom: 20px;" (click)="addToCart(this.puckBuilder.controls.wood.value, this.puckBuilder.controls.width.value, this.puckBuilder.controls.notes.value)">Add to Cart</button>
   </form>
 
 
