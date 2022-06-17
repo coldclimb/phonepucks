@@ -10,6 +10,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { StoreComponent } from './store/store.component';
 import { CartService } from './store/cart.service';
 import { CheckoutComponent } from './store/checkout/checkout.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CheckoutComponent } from './store/checkout/checkout.component';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    NgxPayPalModule
   ],
   providers: [CartService],
   bootstrap: [AppComponent]
