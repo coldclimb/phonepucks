@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog'
 
 import { CartService } from './cart.service';
+import { CheckoutComponent } from './checkout/checkout.component';
 import { woods, slots } from './options';
 
 @Component({
@@ -15,10 +17,10 @@ export class StoreComponent implements OnInit {
 
 
   constructor(
-    public cartService: CartService
+    public cartService: CartService,
+    private matDialog: MatDialog
     ) {
   }
-
 
   cartImage:string = ''
 
@@ -78,6 +80,14 @@ export class StoreComponent implements OnInit {
     return this.cartImage
   }
 
+  openModal() {
+    this.matDialog.open(CheckoutComponent, {
+      "width": '6000px',
+      "maxHeight": '90vh',
+      "data": "John",
+      "autoFocus": false
+    });
+  }
 
 
 

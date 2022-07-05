@@ -18,9 +18,15 @@
       </div>
 
     </div>
+    <br clear="all">
   </div>
+  <div class="fakehr"></div>
 
-  <div><app-checkout></app-checkout></div>
+  <div style="width:200px; float:right; margin-right: 50px;">
+    <h5 style="margin-bottom: 10px;">Cart Total: ${{((this.cartService.$cart.length)*20)}} (USD)</h5>
+    <button (click)="openModal()" mat-mini-fab >Check Out</button>
+    <!-- <div id="PayPalButtons" hidden></div> THIS DIV IS ONLY HERE TO MAKE THE SCRIPT LOAD CORRECTLY -->
+  </div><br clear="all">
 
 </div>
 

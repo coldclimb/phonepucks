@@ -10,6 +10,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { StoreComponent } from './store/store.component';
 import { CartService } from './store/cart.service';
 import { CheckoutComponent } from './store/checkout/checkout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { CheckoutComponent } from './store/checkout/checkout.component';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [CartService],
   bootstrap: [AppComponent]
