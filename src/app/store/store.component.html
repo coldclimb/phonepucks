@@ -1,7 +1,7 @@
 <p>This page is under construction. To purchase a phone puck please email me at: <a href="mailto:coldclimb@gmail.com">coldclimb@gmail.com</a></p>
 
 <div class="storeBlock">
-  <h4>Your Shopping Cart:</h4>
+  <h1>Your Shopping Cart:</h1>
   <div class="fakehr"></div>
   <p *ngIf="!cartService.cartFull">Your shopping cart contains no items. Add a puck below!</p>
 
@@ -23,14 +23,13 @@
   <div class="fakehr"></div>
 
   <div style="width:200px; float:right; margin-right: 50px;">
-    <h5 style="margin-bottom: 10px;">Cart Total: ${{((this.cartService.$cart.length)*20)}} (USD)</h5>
-    <button (click)="openModal()" mat-mini-fab >Check Out</button>
-    <!-- <div id="PayPalButtons" hidden></div> THIS DIV IS ONLY HERE TO MAKE THE SCRIPT LOAD CORRECTLY -->
-  </div><br clear="all">
+    <h4 style="margin-bottom: 10px;">Cart Total: ${{((this.cartService.$cart.length)*20)}} (USD)</h4>
+    <button (click)="openModal()" mat-mini-fab  class="btn btn-secondary" type="button" [disabled]="!cartService.cartFull">Check Out</button>
+  </div><br clear="all"><br>
 
 </div>
 
-<h3>Build yourself a puck</h3>
+<h1>Build yourself a puck</h1>
 
 
 
@@ -38,9 +37,7 @@
 
   <form [formGroup]="puckBuilder" onsubmit="addToCart()">
 
-
-
-    <p>Select a wood:</p>
+    <h1>Select a wood:</h1>
     <div style="text-align: center;">
       <div *ngFor="let w of woods()" [ngClass]="amISelectedWood(w.type)" (click)="this.puckBuilder.controls.wood.setValue(w.type)">
         <input formControlName="wood" value="{{w.type}}" hidden required>
@@ -48,7 +45,7 @@
       </div>
     </div>
 
-    <p>Select a slot size:</p>
+    <h3>Select a slot size:</h3>
     <div style="text-align: center;">
       <div *ngFor="let s of slots()" [ngClass]="amISelectedWidth(s.width)" (click)="this.puckBuilder.controls.width.setValue(s.width)">
         <input formControlName="width" value="{{s.width}}" hidden required>

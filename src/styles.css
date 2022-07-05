@@ -5,3 +5,9 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.checkoutStyles .mat-dialog-container {
+  background-color: #111;
+  border: 1px solid #aaa;
+  border-radius: 15px;
+}

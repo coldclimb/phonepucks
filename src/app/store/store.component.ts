@@ -82,9 +82,9 @@ export class StoreComponent implements OnInit {
 
   openModal() {
     this.matDialog.open(CheckoutComponent, {
-      "width": '6000px',
+      "width": '500px',
       "maxHeight": '90vh',
-      "data": "John",
+      "panelClass": 'checkoutStyles',
       "autoFocus": false
     });
   }
