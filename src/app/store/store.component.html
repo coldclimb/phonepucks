@@ -8,7 +8,7 @@
   <div *ngIf="cartService.cartFull">
     <div *ngFor="let item of cartService.$cart" class="woodSelect">
 
-      <img src="{{woodImage(item.wood)}}"><br>
+      <img src="{{woodImage(item.wood)}}" style="border-radius: 13px;"><br>
       {{item.wood}}<br>
       {{item.width}}<br>
       Notes: {{item.notes}}<br>
@@ -41,7 +41,7 @@
     <div style="text-align: center;">
       <div *ngFor="let w of woods()" [ngClass]="amISelectedWood(w.type)" (click)="this.puckBuilder.controls.wood.setValue(w.type)">
         <input formControlName="wood" value="{{w.type}}" hidden required>
-        <img src="{{w.img}}"><br>{{w.type}}
+        <img src="{{w.img}}" style="border-radius: 13px;"><br>{{w.type}}
       </div>
     </div>
 
@@ -49,7 +49,7 @@
     <div style="text-align: center;">
       <div *ngFor="let s of slots()" [ngClass]="amISelectedWidth(s.width)" (click)="this.puckBuilder.controls.width.setValue(s.width)">
         <input formControlName="width" value="{{s.width}}" hidden required>
-        <img src="{{s.img}}"><br>{{s.width}}
+        <img src="{{s.img}}" style="border-radius: 13px;"><br>{{s.width}}
       </div>
     </div>
 

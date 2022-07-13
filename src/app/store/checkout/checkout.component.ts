@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { render } from 'creditcardpayments/creditCardPayments'
@@ -28,6 +28,8 @@ export class CheckoutComponent implements OnInit, OnDestroy{
         currency: "USD",
         value: this.checkoutPrice,
         onApprove: (details) => {
+          details = this.cartService.$cart;
+          this.AddOrderToDatabase(details);
           alert("Transaction Successful");
         }
       }
@@ -36,6 +38,11 @@ export class CheckoutComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     console.log('Destroyed the Checkout Component')
+  }
+
+  AddOrderToDatabase(details:any) {
+    console.log(details);
+    console.log('Order added to Database');
   }
 
 

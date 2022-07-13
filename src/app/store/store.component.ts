@@ -25,6 +25,7 @@ export class StoreComponent implements OnInit {
   cartImage:string = ''
 
   ngOnInit() {
+    
   }
 
   woods() {
@@ -89,6 +90,10 @@ export class StoreComponent implements OnInit {
     });
   }
 
+  closeTheCart() {
+    console.log('running closeTheCart')
+    this.matDialog.closeAll()
+  }
 
 
 }
