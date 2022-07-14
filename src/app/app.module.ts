@@ -27,7 +27,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    NgbModule
   ],
   providers: [CartService],
   bootstrap: [AppComponent]

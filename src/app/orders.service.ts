@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CartService } from './store/cart.service';
 
 @Injectable({
@@ -6,6 +7,15 @@ import { CartService } from './store/cart.service';
 })
 export class OrdersService {
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
+
+cart:any
+
+makeOrder() {
+  this.cart = this.cartService.getCart
+  
 }
 
+
+
+}

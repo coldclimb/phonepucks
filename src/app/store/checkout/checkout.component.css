@@ -10,3 +10,8 @@ h1 {
   font-weight: bold;
 }
 
+label {
+  color: whitesmoke;
+  padding-top: 17px;
+  padding-bottom: 1px;
+}
