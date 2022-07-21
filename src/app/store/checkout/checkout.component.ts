@@ -1,9 +1,12 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { CartService } from '../cart.service';
 import { OrdersService } from 'src/app/orders.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { Stripe } from 'stripe'
+
 
 @Component({
   selector: 'app-checkout',
@@ -19,15 +22,17 @@ export class CheckoutComponent implements OnInit, OnDestroy{
   constructor(
     @Inject(MAT_DIALOG_DATA) public anyVariable:any,
     public cartService: CartService,
-    public ordersService: OrdersService,
-    ) { }
+    public ordersService: OrdersService
+  ) { }
 
-  ngOnInit(): void  {
-    this.invokeStripe();
+  async ngOnInit(): Promise<Stripe |void>  {
+    // this.invokeStripe();
+
 
     this.addressForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required]),
       address1: new FormControl('', Validators.required),
       address2: new FormControl(''),
       city: new FormControl('', Validators.required),
@@ -41,39 +46,47 @@ export class CheckoutComponent implements OnInit, OnDestroy{
 
 
 
-  makePayment(amount: any) {
-    const paymentHandler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_51LLUQsEKKknizqKh0dPgmH5qOeCktQ4rPC0ikQLiiu3dUkQDzcXdDAr4BaN02VHyyEBm1rjJwEfMl3AB5W8maeWF003dPTaBhI',
-      locale: 'auto',
-      token: function (stripeToken: any) {
-        console.log(stripeToken);
-        alert('Stripe token generated!');
-      },
-    });
-    paymentHandler.open({
-      name: 'PhonePucks.com',
-      description: `${this.cartService.$cart.length} phone pucks`,
-      amount: amount * 100,
-    });
-  }
-  invokeStripe() {
-    if (!window.document.getElementById('stripe-script')) {
-      const script = window.document.createElement('script');
-      script.id = 'stripe-script';
-      script.type = 'text/javascript';
-      script.src = 'https://checkout.stripe.com/checkout.js';
-      script.onload = () => {
-        this.paymentHandler = (<any>window).StripeCheckout.configure({
-          key: 'pk_test_51LLUQsEKKknizqKh0dPgmH5qOeCktQ4rPC0ikQLiiu3dUkQDzcXdDAr4BaN02VHyyEBm1rjJwEfMl3AB5W8maeWF003dPTaBhI',
-          locale: 'auto',
-          token: function (stripeToken: any) {
-            console.log(stripeToken);
-            alert('Payment has been successfull!');
-          },
-        });
-      };
-      window.document.body.appendChild(script);
-    }
+  // makePayment(amount: any) {
+  //   const paymentHandler = (<any>window).StripeCheckout.configure({
+  //     key: 'pk_test_51LLUQsEKKknizqKh0dPgmH5qOeCktQ4rPC0ikQLiiu3dUkQDzcXdDAr4BaN02VHyyEBm1rjJwEfMl3AB5W8maeWF003dPTaBhI',
+  //     locale: 'auto',
+  //     token: function (stripeToken: any) {
+  //       console.log(stripeToken);
+  //       alert('Stripe token generated!');
+  //     }
+  //   });
+  //   paymentHandler.open({
+  //     name: 'PhonePucks.com',
+  //     description: `${this.cartService.$cart.length} phone pucks`,
+  //     amount: amount * 100,
+  //   });
+  // }
+
+  // invokeStripe() {
+  //   if (!window.document.getElementById('stripe-script')) {
+  //     const script = window.document.createElement('script');
+  //     script.id = 'stripe-script';
+  //     script.type = 'text/javascript';
+  //     script.src = 'https://checkout.stripe.com/checkout.js';
+  //     script.onload = () => {
+  //       this.paymentHandler = (<any>window).StripeCheckout.configure({
+  //         key: 'pk_test_51LLUQsEKKknizqKh0dPgmH5qOeCktQ4rPC0ikQLiiu3dUkQDzcXdDAr4BaN02VHyyEBm1rjJwEfMl3AB5W8maeWF003dPTaBhI',
+  //         locale: 'auto',
+  //         token: function (stripeToken: any) {
+  //           console.log(stripeToken);
+  //           alert('Payment has been successfull!');
+  //           this.completeOrder(stripeToken);
+  //         },
+  //       });
+  //     };
+  //     window.document.body.appendChild(script);
+  //   }
+  // }
+
+  completeOrder(stripeToken:any) {
+    const completedOrder:any = this.cartService.getCart();
+    completedOrder.unshift(stripeToken.id,stripeToken.email);
+    console.log(completedOrder);
   }
 
 

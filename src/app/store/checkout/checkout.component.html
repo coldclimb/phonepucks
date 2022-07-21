@@ -1,4 +1,6 @@
 
+  <script src="https://js.stripe.com/v3/"></script>
+
 <div>
   <h1>Checking Out</h1>
   <p>Pucks in cart: {{this.cartService.$cart.length}}<br>
@@ -14,61 +16,80 @@
         </tr><tr>
           <td style="padding-right: 10px;">
             <input type="text" class="form-control" name="firstName" formControlName="firstName" >
-            <div class="alert alert-danger" *ngIf="
-                addressForm.get('firstName')?.hasError('required') && (
-                addressForm.get('firstName')?.dirty ||
-                addressForm.get('firstName')?.touched)
-              ">First name is required
-            </div>
+              <div class="alert alert-danger" *ngIf="
+                  addressForm.get('firstName')?.hasError('required') && (
+                  addressForm.get('firstName')?.dirty ||
+                  addressForm.get('firstName')?.touched)
+                ">First name is required
+              </div>
           </td>
           <td>
             <input type="text" class="form-control" formControlName="lastName" required>
-            <div class="alert alert-danger" *ngIf="
-              addressForm.get('lastName')?.hasError('required') && (
-              addressForm.get('lastName')?.dirty ||
-              addressForm.get('lastName')?.touched)
-              ">Last name is required
-            </div>
+              <div class="alert alert-danger" *ngIf="
+                addressForm.get('lastName')?.hasError('required') && (
+                addressForm.get('lastName')?.dirty ||
+                addressForm.get('lastName')?.touched)
+                ">Last name is required
+              </div>
           </td>
         </tr>
       </table>
-      <label for="address1">Address:</label><br>
-      <input type="text" id="address1" style="width: 100%;" class="form-control" formControlName="address1">
-      <div class="alert alert-danger" *ngIf="
-          addressForm.get('address1')?.hasError('required') && (
-          addressForm.get('address1')?.dirty ||
-          addressForm.get('address1')?.touched)
-        ">Address is required</div>
+      <label for="email">Email:</label><br>
+        <input type="text" id="email" style="width: 100%;" class="form-control" formControlName="email">
+        <div class="alert alert-danger" *ngIf="
+            addressForm.get('email')?.hasError('required') && (
+            addressForm.get('email')?.dirty ||
+            addressForm.get('email')?.touched)
+          ">A valid email address is required</div>
+      <label for="address1">Shipping Address:</label><br>
+        <input type="text" id="address1" style="width: 100%;" class="form-control" formControlName="address1">
+        <div class="alert alert-danger" *ngIf="
+            addressForm.get('address1')?.hasError('required') && (
+            addressForm.get('address1')?.dirty ||
+            addressForm.get('address1')?.touched)
+          ">A shipping address is required</div>
       <label for="address2">Address line 2:</label><br>
-      <input type="text" id="address2" style="width: 100%;" class="form-control" formControlName="address2">
+        <input type="text" id="address2" style="width: 100%;" class="form-control" formControlName="address2">
       <label for="city">City:</label><br>
-      <input type="text" id="city" class="form-control" formControlName="city">
-      <div class="alert alert-danger" *ngIf="
-          addressForm.get('city')?.hasError('required') && (
-          addressForm.get('city')?.dirty ||
-          addressForm.get('city')?.touched)
-        ">City is required</div>
+        <input type="text" id="city" class="form-control" formControlName="city">
+        <div class="alert alert-danger" *ngIf="
+            addressForm.get('city')?.hasError('required') && (
+            addressForm.get('city')?.dirty ||
+            addressForm.get('city')?.touched)
+          ">City is required</div>
       <label for="state">State:</label><br>
-      <input type="text" id="state" class="form-control" formControlName="state">
-      <div class="alert alert-danger" *ngIf="
-          addressForm.get('state')?.hasError('required') && (
-          addressForm.get('state')?.dirty ||
-          addressForm.get('state')?.touched)
-        ">State is required</div>
+        <input type="text" id="state" class="form-control" formControlName="state">
+        <div class="alert alert-danger" *ngIf="
+            addressForm.get('state')?.hasError('required') && (
+            addressForm.get('state')?.dirty ||
+            addressForm.get('state')?.touched)
+          ">State is required</div>
       <label for="zip">Zip Code:</label><br>
-      <input type="text" id="zip" class="form-control" formControlName="zip">
-      <div class="alert alert-danger" *ngIf="
-          addressForm.get('zip')?.hasError('required') && (
-          addressForm.get('zip')?.dirty ||
-          addressForm.get('zip')?.touched)
-        ">Zip code is required</div>
+        <input type="text" id="zip" class="form-control" formControlName="zip">
+        <div class="alert alert-danger" *ngIf="
+            addressForm.get('zip')?.hasError('required') && (
+            addressForm.get('zip')?.dirty ||
+            addressForm.get('zip')?.touched)
+          ">Zip code is required</div>
     </form><br>
+
+    <form id="payment-form">
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Pay now</span>
+      </button>
+      <div id="payment-message" class="hidden"></div>
+    </form>
+
   </div>
 
 
   <div style="margin: auto;">
     <div class="col-md-5 mb-2" style="margin: auto;">
-      <button (click)="makePayment(checkoutPrice)" class="btn btn-danger btn-block"  [disabled]="addressForm.invalid || !addressForm.touched">Pay with Stripe</button>
+      <button class="btn btn-danger btn-block"  [disabled]="addressForm.invalid || !addressForm.touched">Pay with Stripe</button>
     </div>
   </div>
 

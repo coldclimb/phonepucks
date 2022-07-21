@@ -12,6 +12,8 @@ import { CartService } from './store/cart.service';
 import { CheckoutComponent } from './store/checkout/checkout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SuccessComponent } from './store/checkout/success/success.component';
+import { CancelComponent } from './store/checkout/cancel/cancel.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     PageNotFoundComponent,
     HomePageComponent,
     StoreComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    SuccessComponent,
+    CancelComponent
   ],
   imports: [
     BrowserModule,
